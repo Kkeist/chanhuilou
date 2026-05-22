@@ -36,7 +36,7 @@
 
 如果哪天我们改了 Cloudflare Worker 的代码（API / 前端 HTML / 任何东西），**不需要重新部署 EdgeOne 项目**——反代是实时透传，原服务怎么变它就怎么传过去。
 
-只有改 `edgeone-proxy/functions/[[default]].js` 里的 `ORIGIN` 时才需要重新部署 EdgeOne 项目。
+只有改 `edgeone-proxy/edge-functions/[[default]].js` 里的 `ORIGIN` 时才需要重新部署 EdgeOne 项目。
 
 ## 局限
 
