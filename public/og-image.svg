@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#faf6f0"/>
+  <text x="600" y="290" font-size="120" text-anchor="middle" fill="#2e2620" font-family="Songti SC, STSong, SimSun, serif" letter-spacing="25" font-weight="500">赛博上帝</text>
+  <line x1="540" y1="335" x2="660" y2="335" stroke="#c89a85" stroke-width="2"/>
+  <text x="600" y="400" font-size="42" text-anchor="middle" fill="#6b5e54" font-family="Songti SC, STSong, SimSun, serif" letter-spacing="25">忏悔楼</text>
+  <g transform="translate(540, 480)">
+    <circle cx="15" cy="20" r="10" fill="#c89a85"/>
+    <text x="40" y="30" font-size="28" fill="#6b5e54" font-family="serif">忏悔</text>
+    <text x="115" y="30" font-size="32" fill="#c89a85" font-weight="900" font-family="Helvetica, Arial, sans-serif">×</text>
+    <text x="145" y="30" font-size="28" fill="#6b5e54" font-family="serif">破戒</text>
+  </g>
+</svg>

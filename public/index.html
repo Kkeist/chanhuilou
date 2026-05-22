@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=yes">
+  <meta name="theme-color" content="#faf6f0">
+  <title>赛博上帝 · 忏悔楼</title>
+  <meta name="description" content="联网匿名忏悔楼 — 每天写一句「我再也不___了」, 看看有谁和你一起忏悔。">
+
+  <!-- canonical -->
+  <link rel="canonical" href="https://chanhuilou.pages.dev/">
+
+  <!-- 分享卡 (Open Graph + Twitter) -->
+  <meta property="og:title" content="赛博上帝 · 忏悔楼">
+  <meta property="og:description" content="联网匿名忏悔楼 — 看看有谁和你一起忏悔">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="赛博上帝 · 忏悔楼">
+  <meta name="twitter:description" content="联网匿名忏悔楼 — 看看有谁和你一起忏悔">
+  <meta name="twitter:image" content="/og-image.png">
+
+  <!-- Icon + PWA -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/manifest.json">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============= 身份页 ============= -->
+  <main id="page-identity" class="page page-active">
+    <div class="identity-wrap">
+      <header class="brand">
+        <h1 class="brand-title">赛博上帝</h1>
+        <div class="brand-divider"></div>
+        <p class="brand-sub">忏悔楼</p>
+      </header>
+
+      <section class="warn-box">
+        <p class="warn-title">提醒</p>
+        <p class="warn-line">不要在忏悔里输入任何隐私信息。</p>
+        <p class="warn-line">所有人只要输入忏悔者名字就能看到所有使用该名字的忏悔。</p>
+      </section>
+
+      <form class="identity-form" id="identity-form" novalidate>
+        <input
+          id="name-input"
+          type="text"
+          class="text-input"
+          placeholder="请输入你的名字"
+          maxlength="30"
+          autocomplete="off"
+          autocapitalize="off"
+          autocorrect="off"
+          spellcheck="false"
+        >
+
+        <div class="btn-row">
+          <button type="button" id="btn-enter" class="btn btn-primary">进入</button>
+          <button type="button" id="btn-create" class="btn btn-ghost">有没有重名呢?</button>
+        </div>
+
+        <p id="identity-msg" class="form-msg" aria-live="polite"></p>
+      </form>
+    </div>
+  </main>
+
+
+  <!-- ============= 忏悔主页 ============= -->
+  <main id="page-confess" class="page">
+
+    <!-- 顶栏 -->
+    <header class="topbar">
+      <div class="topbar-name">
+        <span class="topbar-label">忏悔者</span>
+        <span id="me-name" class="topbar-me">—</span>
+      </div>
+      <button type="button" id="btn-logout" class="topbar-btn">切换</button>
+    </header>
+
+    <!-- 主 tab (3 个) -->
+    <nav class="view-tabs" id="view-tabs">
+      <button type="button" class="tab tab-active" data-view="confess">忏悔</button>
+      <button type="button" class="tab" data-view="break">破戒</button>
+      <button type="button" class="tab" data-view="record">忏悔录</button>
+    </nav>
+
+
+    <!-- ===== 视图: 忏悔输入 ===== -->
+    <section id="view-confess" class="view view-active">
+      <div class="confess-card">
+        <h2 class="section-title">今日忏悔</h2>
+
+        <div class="confess-input-wrap">
+          <span class="prefix">我再也不</span>
+          <input
+            id="confess-input"
+            type="text"
+            class="confess-input"
+            placeholder="在此填写"
+            maxlength="50"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+          >
+          <span class="suffix">了</span>
+        </div>
+
+        <button type="button" id="btn-confess" class="btn btn-primary btn-large">忏悔</button>
+
+        <!-- 提交后的统计 (带 × 关闭) -->
+        <section id="stats-area" class="stats-area hidden" aria-live="polite">
+          <button type="button" id="stats-close" class="stats-close" aria-label="关闭统计">×</button>
+          <p class="stat-line">
+            今天有 <span class="stat-num" id="stat-today-same"></span> 人和你一起忏悔。
+          </p>
+          <p class="stat-line">
+            「我再也不<span class="stat-content"></span>了」被你忏悔了 <span class="stat-num" id="stat-me-times"></span> 次。
+          </p>
+          <p class="stat-line">
+            漫长的时间中, 「我再也不<span class="stat-content"></span>了」被忏悔了 <span class="stat-num" id="stat-all-times"></span> 次。
+          </p>
+        </section>
+      </div>
+
+      <!-- 历史快选 -->
+      <div class="quick-pick">
+        <p class="quick-pick-label">从过去的忏悔里再忏一次</p>
+        <div id="quick-pick-list" class="quick-pick-list"></div>
+        <p id="quick-pick-empty" class="quick-pick-empty">还没有过往忏悔。写下你的第一条吧。</p>
+      </div>
+    </section>
+
+
+    <!-- ===== 视图: 破戒输入 ===== -->
+    <section id="view-break" class="view">
+      <div class="break-card">
+        <h2 class="section-title">今日破戒</h2>
+
+        <p id="break-no-history" class="break-empty hidden">还没忏悔过, 没法破戒。先写一条忏悔吧。</p>
+
+        <div id="break-pick-area">
+          <p class="break-pick-hint"></p>
+          <div id="break-pick-list" class="break-pick-list"></div>
+        </div>
+
+        <!-- 选了句子后才显示 -->
+        <div id="break-input-area" class="break-input-area hidden">
+          <div class="break-sentence">
+            <span class="prefix">我</span>
+            <span id="break-content" class="break-content"></span>
+            <span class="suffix">了, 因为</span>
+          </div>
+          <textarea
+            id="break-but"
+            class="break-but"
+            placeholder="狡辩一下吧"
+            maxlength="100"
+            rows="2"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+          ></textarea>
+          <button type="button" id="btn-peek" class="break-peek-btn"></button>
+          <button type="button" id="btn-break" class="btn btn-primary btn-large">破戒</button>
+        </div>
+
+        <!-- 提交破戒后的统计(不显示别人原因) -->
+        <section id="break-stats-area" class="stats-area hidden" aria-live="polite">
+          <button type="button" id="break-stats-close" class="stats-close" aria-label="关闭统计">×</button>
+          <p class="stat-line">
+            今天有 <span class="stat-num" id="break-stat-today-same"></span> 人和你一起破戒。
+          </p>
+          <p class="stat-line">
+            「我再也不<span class="break-stat-content"></span>了」被你破戒了 <span class="stat-num" id="break-stat-me-times"></span> 次。
+          </p>
+          <p class="stat-line">
+            漫长的时间中, 「我再也不<span class="break-stat-content"></span>了」被破戒了 <span class="stat-num" id="break-stat-all-times"></span> 次。
+          </p>
+        </section>
+      </div>
+    </section>
+
+
+    <!-- ===== 视图: 忏悔录(含 3 个子视图) ===== -->
+    <section id="view-record" class="view">
+
+      <!-- 子 tab -->
+      <nav class="sub-tabs" id="sub-tabs">
+        <button type="button" class="sub-tab sub-tab-active" data-sub="tree">时间树</button>
+        <button type="button" class="sub-tab" data-sub="calendar">日历本</button>
+        <button type="button" class="sub-tab" data-sub="list">忏悔列表</button>
+      </nav>
+
+      <!-- 时间树 -->
+      <section id="sub-tree" class="sub-view sub-view-active">
+        <div id="tree-list" class="tree-list"></div>
+        <p id="tree-empty" class="empty-text">还没写下任何忏悔, 也还没破戒。<br>这里会按时间记下你的每一次。</p>
+      </section>
+
+      <!-- 日历本 -->
+      <section id="sub-calendar" class="sub-view">
+        <div class="calendar-header">
+          <button type="button" id="cal-prev" class="cal-nav" aria-label="上一月">‹</button>
+          <h3 id="cal-month" class="cal-title">—</h3>
+          <button type="button" id="cal-next" class="cal-nav" aria-label="下一月">›</button>
+        </div>
+
+        <p id="cal-month-stats" class="cal-month-stats"></p>
+
+        <div id="cal-filter" class="cal-filter hidden">
+          <span>只看: 「我再也不<span id="cal-filter-content"></span>了」</span>
+          <button type="button" id="cal-filter-clear" class="cal-filter-clear">清除筛选</button>
+        </div>
+
+        <div class="calendar-weekdays">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div id="cal-grid" class="cal-grid"></div>
+      </section>
+
+      <!-- 忏悔列表 -->
+      <section id="sub-list" class="sub-view">
+        <div id="list-items" class="list-items"></div>
+        <p id="list-empty" class="empty-text">还没忏悔过。<br>这里会列出你说过的所有戒。</p>
+      </section>
+
+    </section>
+
+    <!-- 通用确认弹层(删除等不可逆操作) -->
+    <div id="confirm-dialog" class="day-detail hidden" role="dialog" aria-modal="true">
+      <div class="day-detail-backdrop" id="confirm-backdrop"></div>
+      <div class="day-detail-inner confirm-inner">
+        <header class="day-detail-head">
+          <h4 id="confirm-title">—</h4>
+        </header>
+        <p id="confirm-text" class="confirm-text"></p>
+        <div class="confirm-btns">
+          <button type="button" id="confirm-cancel" class="btn btn-ghost">取消</button>
+          <button type="button" id="confirm-ok" class="btn btn-primary">删除</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 点格子后弹出的当天详情(放在主页根, 覆盖整页) -->
+    <div id="day-detail" class="day-detail hidden" role="dialog" aria-modal="true">
+      <div class="day-detail-backdrop" id="day-detail-backdrop"></div>
+      <div class="day-detail-inner">
+        <header class="day-detail-head">
+          <h4 id="day-detail-date">—</h4>
+          <button type="button" id="day-detail-close" class="day-detail-close" aria-label="关闭">×</button>
+        </header>
+        <div id="day-detail-list" class="day-detail-list"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 全局轻提示 -->
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js" type="module"></script>
+</body>
+</html>

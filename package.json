@@ -1,0 +1,17 @@
+{
+  "name": "chanhuilou",
+  "version": "0.1.0",
+  "private": true,
+  "description": "赛博上帝 / 忏悔楼 — 联网匿名忏悔",
+  "scripts": {
+    "dev": "wrangler pages dev",
+    "deploy": "wrangler pages deploy public",
+    "db:init": "wrangler d1 execute chanhuilou-db --file=./schema.sql",
+    "db:init:remote": "wrangler d1 execute chanhuilou-db --file=./schema.sql --remote",
+    "icons": "node scripts/build-icons.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5",
+    "wrangler": "^3.80.0"
+  }
+}

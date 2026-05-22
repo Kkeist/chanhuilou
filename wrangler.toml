@@ -1,0 +1,18 @@
+# Cloudflare 项目配置
+# 部署时 Cloudflare 会读这个文件来知道项目叫什么、用哪个数据库
+
+# 项目名(待会创建 Pages 项目时用同一个名字)
+name = "chanhuilou"
+
+# 兼容性日期 — 锁定 Cloudflare 行为, 防止平台升级把代码搞挂
+compatibility_date = "2025-05-21"
+
+# 静态资源目录(Cloudflare Pages 从这里发文件给浏览器)
+pages_build_output_dir = "./public"
+
+# D1 数据库绑定
+# 表示: 在 Workers/Functions 里可以用 env.DB 这个变量操作数据库
+[[d1_databases]]
+binding = "DB"                       # 代码里用 env.DB 引用
+database_name = "chanhuilou-db"      # D1 数据库的名字(待会创建时填这个)
+database_id = "2b3cd282-e14d-4b2e-bba4-87f0786ac4e1"

@@ -1,0 +1,42 @@
+# Cloudflare Pages 安全响应头 + 缓存策略
+
+# 安全头(对所有路径生效)
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
+# 图标/静态资源 — 长缓存(改了也只会等 1 天用户拿到新版本)
+/*.svg
+  Cache-Control: public, max-age=86400
+
+/*.png
+  Cache-Control: public, max-age=86400
+
+/manifest.json
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+
+# CSS / JS — 短缓存(改代码后用户尽快拿新版)
+/*.css
+  Cache-Control: public, max-age=300
+
+/*.js
+  Cache-Control: public, max-age=300
+
+# Service worker — 永远不缓存(改了立刻生效)
+/sw.js
+  Cache-Control: no-store, no-cache, must-revalidate
+  Service-Worker-Allowed: /
+
+# API — 完全不缓存(每次都拉最新数据)
+/api/*
+  Cache-Control: no-store
