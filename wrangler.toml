@@ -1,18 +1,24 @@
-# Cloudflare 项目配置
-# 部署时 Cloudflare 会读这个文件来知道项目叫什么、用哪个数据库
+# Cloudflare Workers 配置 (Workers Static Assets 模式)
+# 部署: 接 GitHub auto-deploy, Cloudflare 跑 `npx wrangler deploy` 时读这个文件
 
-# 项目名(待会创建 Pages 项目时用同一个名字)
-name = "chanhuilou"
+# Workers 项目名 (与 dashboard 项目一致)
+name = "always-regret-never-stop"
 
-# 兼容性日期 — 锁定 Cloudflare 行为, 防止平台升级把代码搞挂
-compatibility_date = "2025-05-21"
+# Workers 入口脚本 — 处理 /api/* 路由 + fallback 到 static assets
+main = "src/index.js"
 
-# 静态资源目录(Cloudflare Pages 从这里发文件给浏览器)
-pages_build_output_dir = "./public"
+# 兼容性日期 — 锁定 Cloudflare Workers runtime 行为
+compatibility_date = "2026-05-22"
 
-# D1 数据库绑定
-# 表示: 在 Workers/Functions 里可以用 env.DB 这个变量操作数据库
+# 静态资源 — public/ 下所有文件 (HTML/CSS/JS/SVG/PNG/manifest/sw/_headers/_redirects)
+# Workers Assets 自动 serve, 支持 _headers / _redirects / 404.html / not_found_handling
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "404-page"
+
+# D1 数据库绑定 — Workers 代码里 env.DB 引用
 [[d1_databases]]
-binding = "DB"                       # 代码里用 env.DB 引用
-database_name = "chanhuilou-db"      # D1 数据库的名字(待会创建时填这个)
+binding = "DB"                       # 代码里用 env.DB
+database_name = "chanhuilou-db"
 database_id = "2b3cd282-e14d-4b2e-bba4-87f0786ac4e1"
