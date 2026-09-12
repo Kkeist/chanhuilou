@@ -1312,3 +1312,69 @@ input::placeholder, textarea::placeholder {
     animation-duration: 0.01s !important;
   }
 }
+
+
+/* ============================================================
+   哐哐工作室标注 — 只管排版, 颜色继承所在页面
+   ============================================================ */
+
+.kk-credit-text p:nth-of-type(2), .kk-credit-text p:nth-of-type(3) { display: inline; }
+/* 框起来: 细边框 + 淡底色 + 圆角 + 留白。头像在文字左边、上下居中。
+   min-height = 三行 61.2 + 内边距 20 + 边框 2, 中英文盒子尺寸一致 */
+.kk-credit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 84px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-soft);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  text-align: left;
+}
+.kk-credit-avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+}
+.kk-credit-text {
+  flex: 1;
+  min-width: 0;
+}
+.kk-credit-text p {
+  margin: 0;
+}
+.kk-credit-link {
+  display: inline;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.kk-credit-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 左对齐, 防止被容器的居中样式盖掉 */
+.kk-credit,
+.kk-credit .kk-credit-text,
+.kk-credit .kk-credit-text p {
+  text-align: left;
+}
+
+/* 忏悔主页的那一处跟着内容走, 不做固定页脚。
+   宽度用 width + max-width 撑出与 .view 内容区相同的左右位置,
+   内边距要留给边框自己, 所以不在这里覆盖 padding */
+#page-confess > .kk-credit {
+  width: calc(100% - 2rem);
+  max-width: 38rem;
+  margin: 0 auto calc(2.5rem + env(safe-area-inset-bottom, 0));
+}
+

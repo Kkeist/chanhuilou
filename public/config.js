@@ -47,6 +47,9 @@ window.CONFIG = Object.freeze({
     DELETE:      '/api/delete',
   },
 
+  // 工作室标注的个人站地址 — 页面上两处标注都从这里取
+  KK_SITE: 'https://kkkb.pages.dev/',
+
   // 本地存储 key
   STORAGE: {
     ME:        'chanhuilou.me',

@@ -1106,6 +1106,7 @@ function closeDayDetail() {
 function init() {
   bindIdentityPage();
   bindMainPage();
+  document.querySelectorAll('.kk-credit-link').forEach((a) => { a.href = C.KK_SITE; });
 
   const saved = localStorage.getItem(C.STORAGE.ME);
   if (saved) {
