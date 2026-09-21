@@ -48,7 +48,7 @@ window.CONFIG = Object.freeze({
   },
 
   // 工作室标注的个人站地址 — 页面上两处标注都从这里取
-  KK_SITE: 'https://kkkb.pages.dev/',
+  KK_SITE: 'https://kb.kkeist.com/',
 
   // 本地存储 key
   STORAGE: {
