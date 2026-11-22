@@ -1357,6 +1357,18 @@ input::placeholder, textarea::placeholder {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+/* 隐私与条款：点击区用伪元素往外扩（向下为主，不盖到上一行的个人站链接），不撑高一行 */
+.kk-legal-link {
+  position: relative;
+}
+.kk-legal-link::after {
+  content: '';
+  position: absolute;
+  top: -0.25rem;
+  bottom: -1.25rem;
+  left: -0.5rem;
+  right: -0.5rem;
+}
 .kk-credit-link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;

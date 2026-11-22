@@ -1106,7 +1106,8 @@ function closeDayDetail() {
 function init() {
   bindIdentityPage();
   bindMainPage();
-  document.querySelectorAll('.kk-credit-link').forEach((a) => { a.href = C.KK_SITE; });
+  document.querySelectorAll('.kk-credit-link:not(.kk-legal-link)').forEach((a) => { a.href = C.KK_SITE; });
+  document.querySelectorAll('.kk-legal-link').forEach((a) => { a.href = C.KK_LEGAL; a.textContent = C.TEXT.LEGAL_TITLE; });
 
   const saved = localStorage.getItem(C.STORAGE.ME);
   if (saved) {

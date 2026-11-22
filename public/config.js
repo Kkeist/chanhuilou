@@ -49,6 +49,8 @@ window.CONFIG = Object.freeze({
 
   // 工作室标注的个人站地址 — 页面上两处标注都从这里取
   KK_SITE: 'https://kb.kkeist.com/',
+  // 隐私与条款页地址 — 工作室标注里的链接取这里
+  KK_LEGAL: 'https://kb.kkeist.com/legal/',
 
   // 本地存储 key
   STORAGE: {
@@ -77,6 +79,8 @@ window.CONFIG = Object.freeze({
     CONFIRM_DEL_TITLE:   '确认删除',
     CONFIRM_DEL_OK:      '删除',
     CONFIRM_DEL_CANCEL:  '取消',
+
+    LEGAL_TITLE:         '隐私与条款',
 
     // 破戒卡片
     BREAK_TITLE:       '今日破戒',
