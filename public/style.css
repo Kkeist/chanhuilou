@@ -1357,15 +1357,24 @@ input::placeholder, textarea::placeholder {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-/* 隐私与条款：点击区用伪元素往外扩（向下为主，不盖到上一行的个人站链接），不撑高一行 */
+/* 隐私与条款：小字灰色放在署名块之后，隔开一个明显间距；点击区用伪元素往外扩，不撑高一行 */
+.kk-legal {
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: 1.7;
+  text-align: left;
+}
 .kk-legal-link {
   position: relative;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 .kk-legal-link::after {
   content: '';
   position: absolute;
-  top: -0.25rem;
-  bottom: -1.25rem;
+  top: -0.75rem;
+  bottom: -0.75rem;
   left: -0.5rem;
   right: -0.5rem;
 }
@@ -1385,6 +1394,11 @@ input::placeholder, textarea::placeholder {
    宽度用 width + max-width 撑出与 .view 内容区相同的左右位置,
    内边距要留给边框自己, 所以不在这里覆盖 padding */
 #page-confess > .kk-credit {
+  width: calc(100% - 2rem);
+  max-width: 38rem;
+  margin: 0 auto 2.5rem;
+}
+#page-confess > .kk-legal {
   width: calc(100% - 2rem);
   max-width: 38rem;
   margin: 0 auto calc(2.5rem + env(safe-area-inset-bottom, 0));
