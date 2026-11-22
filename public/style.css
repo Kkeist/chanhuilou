@@ -1357,12 +1357,16 @@ input::placeholder, textarea::placeholder {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-/* 隐私与条款：小字灰色放在署名块之后，隔开一个明显间距；点击区用伪元素往外扩，不撑高一行 */
+/* 隐私与条款：小字灰色放在署名块紧上方、框外，和框隔约半行；点击区用伪元素往外扩，不撑高一行 */
 .kk-legal {
-  margin: 0;
+  margin: 0 0 0.35rem;
   font-size: 0.6875rem;
   line-height: 1.7;
   text-align: left;
+}
+/* 身份页容器有 2.5rem 的行距, 把链接拉回到紧贴署名块上方 */
+.identity-wrap > .kk-legal {
+  margin-bottom: calc(0.35rem - 2.5rem);
 }
 .kk-legal-link {
   position: relative;
@@ -1396,11 +1400,11 @@ input::placeholder, textarea::placeholder {
 #page-confess > .kk-credit {
   width: calc(100% - 2rem);
   max-width: 38rem;
-  margin: 0 auto 2.5rem;
+  margin: 0 auto calc(2.5rem + env(safe-area-inset-bottom, 0));
 }
 #page-confess > .kk-legal {
   width: calc(100% - 2rem);
   max-width: 38rem;
-  margin: 0 auto calc(2.5rem + env(safe-area-inset-bottom, 0));
+  margin: 0 auto 0.35rem;
 }
 
